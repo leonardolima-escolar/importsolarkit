@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+{% endblock style %}
+
+{% block content %}
+
+<table class="table">
+  <tr class="table-header">
+    <th>Código</th>
+  </tr>
+
+  {% for kit in object_list %}
+  <tr class="table-row">
+    <td>{{ kit.code }}</a></td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock content %}
