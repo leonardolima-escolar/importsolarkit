@@ -7,16 +7,98 @@
 
 {% block content %}
 
-<table class="table">
-  <tr class="table-header">
-    <th>Código</th>
-  </tr>
+<div class="table-container">
+  <table class="table">
+    <tr class="table-header">
+      <th>Identificação Kit</th>
+      <th>Código</th>
+      <th>Preço</th>
+      <th>Telhado</th>
+      <th>Conexão</th>
+      <th>Quant. Módulos</th>
+      <th>Modelo Módulo</th>
+      <th>Potência Wp Unitária Módulo</th>
+      <th>Overload Máximo</th>
+      <th>kWp</th>
+      <th>Qtde. Inversor 1</th>
+      <th>Inversor 1</th>
+      <th>Qtde. Inversor 2</th>
+      <th>Inversor 2</th>
+      <th>Quant. Cabo Vermelho (m)</th>
+      <th>Modelo Cabo Vermelho</th>
+      <th>Quant. Cabo Preto (m)</th>
+      <th>Modelo Cabo Preto</th>
+      <th>Quant. Pares Conectores</th>
+      <th>Modelo Par Conector</th>
+      <th>Quant. Stringbox</th>
+      <th>Modelo Stringbox</th>
+      <th>Quant. Estrutura 1</th>
+      <th>Modelo Estrutura 1</th>
+      <th>Quant. Estrutura 2</th>
+      <th>Modelo Estrutura 2</th>
+      <th>Quant. Estrutura 3</th>
+      <th>Modelo Estrutura 3</th>
+      <th>Quant. Estrutura 4</th>
+      <th>Modelo Estrutura 4</th>
+      <th>Quant. Estrutura 5</th>
+      <th>Modelo Estrutura 5</th>
+      <th>Marca do Inversor</th>
+      <th>Marca do Módulo</th>
+    </tr>
 
-  {% for kit in object_list %}
-  <tr class="table-row">
-    <td>{{ kit.code }}</a></td>
-  </tr>
-  {% endfor %}
-</table>
+    {% for kit in object_list %}
+    <tr class="table-row">
+      <td>{{ kit.identification }}</td>
+      <td>{{ kit.code }}</td>
+      <td>{{ kit.price }}</td>
+      <td>{{ kit.roof }}</td>
+      <td>{{ kit.connection }}</td>
+      <td>{{ kit.kit_modules.first.quantity }}</td>
+      <td>{{ kit.kit_modules.first.module.model }}</td>
+      <td>{{ kit.kit_modules.first.module.power }}</td>
+      <td>{{ kit.maximum_overload }}</td>
+      <td>{{ kit.kwp }}</td>
+      <td>{{ kit.kit_inverters.all.0.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_inverters.all.0.inverter.name|default:"-" }}</td>
+      <td>{{ kit.kit_inverters.all.1.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_inverters.all.1.inverter.name|default:"-" }}</td>
+      <td>{{ kit.kit_cables.all.0.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_cables.all.0.cable.model|default:"-" }}</td>
+      <td>{{ kit.kit_cables.all.1.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_cables.all.1.cable.model|default:"-" }}</td>
+      <td>{{ kit.kit_connector_pairs.all.0.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_connector_pairs.all.0.connector_pair.model|default:"-" }}</td>
+      <td>{{ kit.kit_string_boxes.all.0.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_string_boxes.all.0.string_box.model|default:"-" }}</td>
+      <td>{{ kit.kit_structures.all.0.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_structures.all.0.structure.model|default:"-" }}</td>
+      <td>{{ kit.kit_structures.all.1.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_structures.all.1.structure.model|default:"-" }}</td>
+      <td>{{ kit.kit_structures.all.2.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_structures.all.2.structure.model|default:"-" }}</td>
+      <td>{{ kit.kit_structures.all.3.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_structures.all.3.structure.model|default:"-" }}</td>
+      <td>{{ kit.kit_structures.all.4.quantity|default:"-" }}</td>
+      <td>{{ kit.kit_structures.all.4.structure.model|default:"-" }}</td>
+      <td>{{ kit.kit_inverters.first.inverter.brand }}</td>
+      <td>{{ kit.kit_modules.first.module.brand }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
+{% if is_paginated %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}" class="button">Anterior</a>
+    {% endif %}
+    
+    <span class="current-page">{{ page_obj.number }}</span>
+    
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}" class="button">Próximo</a>
+    {% endif %}
+  </div>
+{% endif %}
 
 {% endblock content %}
