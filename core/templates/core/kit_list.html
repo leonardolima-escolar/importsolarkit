@@ -6,8 +6,29 @@
 {% endblock style %}
 
 {% block content %}
+<div class="input-filter">
+  <form method="GET" action="{% url 'solar_panel_kits' %}">
+    <div>
+    <input type="text" name="search" placeholder="Filtrar por Identificação Kit" value="{{ request.GET.search }}">
+    </div>
+    <div class='button-filter'>
+      <button type="submit">Filtrar</button>
+      <th >
+        {% if request.GET.ordering == '-price' %}
+            <a class='input-order' href="?search={{ request.GET.search }}&ordering=price">Menor Preço<i class="fas fa-sort-up"></i></a>
+        {% else %}
+            <a class='input-order' href="?search={{ request.GET.search }}&ordering=-price">Maior Preço <i class="fas fa-sort-down"></i></a>
+        {% endif %}
+    </th>
+    </div>
+  </form>
+  
+</div>
 
 <div class="table-container">
+
+
+
   <table class="table">
     <tr class="table-header">
       <th>Identificação Kit</th>
