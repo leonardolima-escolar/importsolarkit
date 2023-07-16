@@ -17,6 +17,21 @@ class SolarPanelKits(ListView):
     model = Kit
     paginate_by = 20
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search = self.request.GET.get('search')
+
+        if search:
+            queryset = queryset.filter(identification__icontains=search)
+
+        ordering = self.request.GET.get('ordering')
+
+        if ordering == 'price':
+            queryset = queryset.order_by('price')
+        elif ordering == '-price':
+            queryset = queryset.order_by('-price')
+        return queryset
+    
 class ImportToTheDatabase(View):
     success_url = reverse_lazy('solar_panel_kits')
 
