@@ -11,6 +11,7 @@
     <div>
     <input type="text" name="search" placeholder="Filtrar por Identificação Kit" value="{{ request.GET.search }}">
     </div>
+    <input type="hidden" name="ordering" value="{{ request.GET.ordering }}">
     <div class='button-filter'>
       <button type="submit">Filtrar</button>
       <th >
@@ -111,13 +112,13 @@
 {% if is_paginated %}
   <div class="pagination">
     {% if page_obj.has_previous %}
-      <a href="?page={{ page_obj.previous_page_number }}" class="button">Anterior</a>
+      <a href="?page={{ page_obj.previous_page_number }}&search={{ request.GET.search }}&ordering={{ request.GET.ordering }}" class="button">Anterior</a>
     {% endif %}
     
     <span class="current-page">{{ page_obj.number }}</span>
     
     {% if page_obj.has_next %}
-      <a href="?page={{ page_obj.next_page_number }}" class="button">Próximo</a>
+      <a href="?page={{ page_obj.next_page_number }}&search={{ request.GET.search }}&ordering={{ request.GET.ordering }}" class="button">Próximo</a>
     {% endif %}
   </div>
 {% endif %}
